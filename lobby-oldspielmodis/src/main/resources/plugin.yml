@@ -1,0 +1,6 @@
+name: Lobby
+version: 1.0
+author: OldSpielModis Development Team
+main: de.oldspielmodies.lobby.Lobby
+commands:
+  setwarps:
