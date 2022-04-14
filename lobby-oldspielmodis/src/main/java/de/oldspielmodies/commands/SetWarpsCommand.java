@@ -22,7 +22,7 @@ public class SetWarpsCommand implements CommandExecutor {
         if(player.hasPermission("oldspielmodis.admin")){
 
             if(args.length == 0){
-                player.sendMessage("Pleace use §e/warp §8(§eSpawn§8)");
+                player.sendMessage(Lobbysystem.PREFIX + "Pleace use §e/warp §8(§eSpawn§8)");
                 return true;
             }
 
