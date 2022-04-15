@@ -52,9 +52,8 @@ public class CompassInteract implements Listener {
         if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §aSpawn")){
 
             player.closeInventory();
-            player.playSound(player.getLocation(), Sound.LEVEL_UP, 2, 2);
             player.teleport(new LocationManager().getLocation("spawn"));
-
+            player.playSound(player.getLocation(), Sound.LEVEL_UP, 2, 2);
 
         }else return;
 
