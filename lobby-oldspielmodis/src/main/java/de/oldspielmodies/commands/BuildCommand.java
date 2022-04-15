@@ -20,12 +20,12 @@ public class BuildCommand implements CommandExecutor {
                     if (args.length == 0) {
                         if(!Lobbysystem.build.contains(p)){
                             Lobbysystem.build.add(p);
-                            p.sendMessage(Lobbysystem.PREFIX + "You have activated the Build mode");
+                            p.sendMessage(Lobbysystem.PREFIX + "You have activated the Build mode.");
                             p.setGameMode(GameMode.CREATIVE);
                             p.getInventory().clear();
                         } else {
                             Lobbysystem.build.remove(p);
-                            p.sendMessage(Lobbysystem.PREFIX + "You have deactivated the Build mode");
+                            p.sendMessage(Lobbysystem.PREFIX + "You have deactivated the Build mode.");
                             p.setGameMode(GameMode.SURVIVAL);
                             p.getInventory().clear();
                             p.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());
@@ -34,14 +34,14 @@ public class BuildCommand implements CommandExecutor {
                         Player t = Bukkit.getPlayer(args[0]);
                         if(!Lobbysystem.build.contains(t)){
                             Lobbysystem.build.add(t);
-                            p.sendMessage(Lobbysystem.PREFIX + "You have activated the player " + t.getName() + " the BuildMode");
-                            t.sendMessage(Lobbysystem.PREFIX + "You have been activated the BuildMode");
+                            p.sendMessage(Lobbysystem.PREFIX + "You have activated the player " + t.getName() + " the BuildMode.");
+                            t.sendMessage(Lobbysystem.PREFIX + "You have been activated the BuildMode.");
                             t.setGameMode(GameMode.CREATIVE);
                             t.getInventory().clear();
                         } else {
                             Lobbysystem.build.remove(t);
-                            p.sendMessage(Lobbysystem.PREFIX + "You have activated the player " + t.getName() + " the BuildMode");
-                            t.sendMessage(Lobbysystem.PREFIX + "You have been deactivated the BuildMode");
+                            p.sendMessage(Lobbysystem.PREFIX + "You have activated the player " + t.getName() + " the BuildMode.");
+                            t.sendMessage(Lobbysystem.PREFIX + "You have been deactivated the BuildMode.");
                             t.setGameMode(GameMode.SURVIVAL);
                             t.getInventory().clear();
                             t.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());

@@ -11,6 +11,7 @@
       <list>
         <option value="$PROJECT_DIR$/lobby-oldspielmodis/pom.xml" />
         <option value="$PROJECT_DIR$/coin-oldspielmodis/pom.xml" />
+        <option value="$PROJECT_DIR$/coins-oldspielmodis/pom.xml" />
       </list>
     </option>
   </component>

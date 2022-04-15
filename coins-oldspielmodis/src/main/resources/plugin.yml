@@ -1,0 +1,6 @@
+name: Coinssystem
+version: 1.0
+author: OldSpielModis Development Team
+main: de.oldspielmodis.coins.Coinssystem
+commands:
+  coins:

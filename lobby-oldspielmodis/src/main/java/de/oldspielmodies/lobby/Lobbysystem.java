@@ -4,6 +4,7 @@ import de.oldspielmodies.commands.BuildCommand;
 import de.oldspielmodies.commands.SetWarpsCommand;
 import de.oldspielmodies.items.CompassInteract;
 import de.oldspielmodies.listener.BuildListener;
+import de.oldspielmodies.listener.PlayerCoinsChangeListener;
 import de.oldspielmodies.listener.PlayerConnetionListener;
 import de.oldspielmodies.manager.AnimalManager;
 import org.bukkit.Bukkit;
@@ -45,6 +46,7 @@ public class Lobbysystem extends JavaPlugin {
         pluginManager.registerEvents(new PlayerConnetionListener(), this);
         pluginManager.registerEvents(new CompassInteract(), this);
         pluginManager.registerEvents(new BuildListener(), this);
+        pluginManager.registerEvents(new PlayerCoinsChangeListener(), this);
 
     }
 

@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="lobby-oldspielmodis-1.0-SNAPSHOT">
+    <output-path>$PROJECT_DIR$/../../OldSpielModis.de</output-path>
+    <root id="archive" name="lobby-oldspielmodis-1.0-SNAPSHOT.jar">
+      <element id="module-output" name="lobby-oldspielmodis" />
+      <element id="file-copy" path="$PROJECT_DIR$/lobby-oldspielmodis/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>
