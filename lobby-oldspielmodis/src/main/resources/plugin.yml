@@ -4,3 +4,4 @@ author: OldSpielModis Development Team
 main: de.oldspielmodies.lobby.Lobbysystem
 commands:
   setwarp:
+  build:
