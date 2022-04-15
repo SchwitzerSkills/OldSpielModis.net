@@ -54,7 +54,7 @@ public class Coins {
         Bukkit.getPluginManager().callEvent(new PlayerCoinsChangeEvent(uuid, amount));
     }
 
-    public int getCoins(UUID uuid){
+    public Integer getCoins(UUID uuid){
         this.mySQL = Coinssystem.getInstance().getMySQL();
         try (ResultSet rs = mySQL.query("SELECT * FROM Coins WHERE UUID=?", uuid)){
             if(rs.next()){
