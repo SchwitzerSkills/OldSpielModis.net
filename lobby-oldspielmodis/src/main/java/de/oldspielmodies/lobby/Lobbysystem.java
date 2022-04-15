@@ -39,6 +39,7 @@ public class Lobbysystem extends JavaPlugin {
 
     private void init(final PluginManager pluginManager){
 
+        AnimalManager.removeAnimals();
         getServer().getPluginCommand("setwarp").setExecutor(new SetWarpsCommand());
         getServer().getPluginCommand("build").setExecutor(new BuildCommand());
         pluginManager.registerEvents(new PlayerConnetionListener(), this);
