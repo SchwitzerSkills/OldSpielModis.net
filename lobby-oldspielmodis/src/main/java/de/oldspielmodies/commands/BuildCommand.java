@@ -2,8 +2,10 @@ package de.oldspielmodies.commands;
 
 import de.oldspielmodies.data.Data;
 import de.oldspielmodies.lobby.Lobbysystem;
+import de.oldspielmodies.manager.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,7 +28,7 @@ public class BuildCommand implements CommandExecutor {
                             p.sendMessage(Lobbysystem.PREFIX + "You have deactivated the Build mode");
                             p.setGameMode(GameMode.SURVIVAL);
                             p.getInventory().clear();
-                            new Data().onPlayerdefaultJoinSettings(p);
+                            p.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());
                         }
                     } else if(args.length == 1){
                         Player t = Bukkit.getPlayer(args[0]);
@@ -42,7 +44,7 @@ public class BuildCommand implements CommandExecutor {
                             t.sendMessage(Lobbysystem.PREFIX + "You have been deactivated the BuildMode");
                             t.setGameMode(GameMode.SURVIVAL);
                             t.getInventory().clear();
-                            new Data().onPlayerdefaultJoinSettings(p);
+                            t.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());
                         }
                     }
                 } else {

@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/OldSpielModis.net.iml" filepath="$PROJECT_DIR$/.idea/OldSpielModis.net.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lobby-oldspielmodis/lobby-oldspielmodis.iml" filepath="$PROJECT_DIR$/lobby-oldspielmodis/lobby-oldspielmodis.iml" />
     </modules>
   </component>
 </project>
