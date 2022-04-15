@@ -18,9 +18,7 @@ public class Data {
         player.setLevel(2022);
 
         player.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());
-        for(Player all : Bukkit.getOnlinePlayers()){
-            new ScoreboardManager().setBoard(all);
-        }
+        new ScoreboardManager().setBoard(player);
 
 
     }

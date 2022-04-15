@@ -17,7 +17,7 @@ public class Coins {
         mySQL.update("CREATE TABLE IF NOT EXISTS Coins (UUID VARCHAR(100), COINS VARCHAR(100))");
     }
 
-    public boolean isUserExists(UUID uuid){
+    public boolean isUserExists(String uuid){
         this.mySQL = Coinssystem.getInstance().getMySQL();
         try (ResultSet rs = mySQL.query("SELECT COUNT(*) AS count FROM Coins WHERE UUID=?", uuid)){
             if(rs.next()){
@@ -29,32 +29,36 @@ public class Coins {
         return false;
     }
 
-    public void addUser(UUID uuid){
+    public void addUser(String uuid){
+        int coins = 0;
         this.mySQL = Coinssystem.getInstance().getMySQL();
-        mySQL.update("INSERT INTO Coins (UUID, COINS) VALUES ('"+ uuid + "', '" + 0 + "')");
+        mySQL.update("INSERT INTO Coins (UUID, COINS) VALUES ('" + uuid + "', '" + coins + "')");
     }
 
-    public void setCoins(UUID uuid, int coins){
+    public void setCoins(String uuid, int coins){
         this.mySQL = Coinssystem.getInstance().getMySQL();
-        mySQL.update("UPDATE Coins SET COINS=? WHERE UUID=?", uuid, coins);
-        Bukkit.getPluginManager().callEvent(new PlayerCoinsChangeEvent(uuid, coins));
+        mySQL.update("UPDATE Coins SET COINS=? WHERE UUID=?", coins, uuid);
+        PlayerCoinsChangeEvent playerCoinsChangeEvent = new PlayerCoinsChangeEvent(uuid, coins);
+        Bukkit.getPluginManager().callEvent(playerCoinsChangeEvent);
     }
 
-    public void addCoins(UUID uuid, int coins){
+    public void addCoins(String uuid, int coins){
         this.mySQL = Coinssystem.getInstance().getMySQL();
         int amount = getCoins(uuid) + coins;
-        mySQL.update("UPDATE Coins SET COINS=? WHERE UUID=?", uuid, amount);
-        Bukkit.getPluginManager().callEvent(new PlayerCoinsChangeEvent(uuid, amount));
+        mySQL.update("UPDATE Coins SET COINS=? WHERE UUID=?", amount, uuid);
+        PlayerCoinsChangeEvent playerCoinsChangeEvent = new PlayerCoinsChangeEvent(uuid, amount);
+        Bukkit.getPluginManager().callEvent(playerCoinsChangeEvent);
     }
 
-    public void removeCoins(UUID uuid, int coins){
+    public void removeCoins(String uuid, int coins){
         this.mySQL = Coinssystem.getInstance().getMySQL();
         int amount = getCoins(uuid) - coins;
-        mySQL.update("UPDATE Coins SET COINS=? WHERE UUID=?", uuid, amount);
-        Bukkit.getPluginManager().callEvent(new PlayerCoinsChangeEvent(uuid, amount));
+        mySQL.update("UPDATE Coins SET COINS=? WHERE UUID=?", amount, uuid);
+        PlayerCoinsChangeEvent playerCoinsChangeEvent = new PlayerCoinsChangeEvent(uuid, amount);
+        Bukkit.getPluginManager().callEvent(playerCoinsChangeEvent);
     }
 
-    public Integer getCoins(UUID uuid){
+    public Integer getCoins(String uuid){
         this.mySQL = Coinssystem.getInstance().getMySQL();
         try (ResultSet rs = mySQL.query("SELECT * FROM Coins WHERE UUID=?", uuid)){
             if(rs.next()){

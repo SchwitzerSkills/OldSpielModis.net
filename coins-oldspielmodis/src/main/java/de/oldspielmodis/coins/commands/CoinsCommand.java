@@ -1,6 +1,7 @@
 package de.oldspielmodis.coins.commands;
 
 import de.oldspielmodis.coins.Coinssystem;
+import de.oldspielmodis.coins.event.PlayerCoinsChangeEvent;
 import de.oldspielmodis.coins.mysql.Coins;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -16,7 +17,7 @@ public class CoinsCommand implements CommandExecutor {
                 Player p = (Player) cs;
                 Coins coins = new Coins();
                 if(args.length == 0){
-                    p.sendMessage(Coinssystem.PREFIX + "You have §e§l" + coins.getCoins(p.getUniqueId()) + "§7 Coins.");
+                    p.sendMessage(Coinssystem.PREFIX + "You have §e§l" + coins.getCoins(p.getUniqueId().toString()) + "§7 Coins.");
                 } else if(args.length == 3 && args[0].equalsIgnoreCase("add")){
                     if(p.hasPermission("oldspielmodis.coins")) {
                         Player target = Bukkit.getPlayer(args[1]);
@@ -24,7 +25,7 @@ public class CoinsCommand implements CommandExecutor {
                         if (amount <= 0) {
                             p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
                         } else {
-                            coins.addCoins(target.getUniqueId(), amount);
+                            coins.addCoins(target.getUniqueId().toString(), amount);
                             p.sendMessage(Coinssystem.PREFIX + "You have added " + amount + " coins to the player " + target.getName() + ".");
                             target.sendMessage(Coinssystem.PREFIX + "You have been added " + amount + " coins.");
                         }
@@ -37,10 +38,10 @@ public class CoinsCommand implements CommandExecutor {
                         int amount = Integer.parseInt(args[2]);
                         if (amount <= 0) {
                             p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
-                        } else if(coins.getCoins(target.getUniqueId()) <= 0) {
+                        } else if(coins.getCoins(target.getUniqueId().toString()) <= 0) {
                             p.sendMessage(Coinssystem.PREFIX + "§cThis player " + target.getName() + " has 0 coins in the account!");
                         } else {
-                            coins.removeCoins(target.getUniqueId(), amount);
+                            coins.removeCoins(target.getUniqueId().toString(), amount);
                             p.sendMessage(Coinssystem.PREFIX + "You have deducted " + amount + " coins from the player " + target.getName() + ".");
                             target.sendMessage(Coinssystem.PREFIX + "You have been deducted " + amount + " coins.");
                         }
@@ -54,7 +55,7 @@ public class CoinsCommand implements CommandExecutor {
                         if (amount <= 0) {
                             p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
                         } else {
-                            coins.setCoins(target.getUniqueId(), amount);
+                            coins.setCoins(target.getUniqueId().toString(), amount);
                             p.sendMessage(Coinssystem.PREFIX + "You have set the player " + target.getName() + "'s coins to " + amount + ".");
                             target.sendMessage(Coinssystem.PREFIX + "You have been set the coins to " + amount + ".");
                         }

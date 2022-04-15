@@ -1,6 +1,7 @@
 package de.oldspielmodis.coins;
 
 import de.oldspielmodis.coins.commands.CoinsCommand;
+import de.oldspielmodis.coins.event.PlayerCoinsChangeEvent;
 import de.oldspielmodis.coins.listeners.JoinListener;
 import de.oldspielmodis.coins.mysql.Coins;
 import de.oldspielmodis.coins.mysql.MySQL;

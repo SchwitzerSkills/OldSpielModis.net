@@ -12,10 +12,8 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
         Coins coin = new Coins();
-        if(!coin.isUserExists(p.getUniqueId())){
-            p.sendMessage("dsds");
-            coin.addUser(p.getUniqueId());
-            p.sendMessage("dsds");
+        if(!coin.isUserExists(p.getUniqueId().toString())){
+            coin.addUser(p.getUniqueId().toString());
         }
     }
 }

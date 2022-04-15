@@ -7,6 +7,7 @@ import de.oldspielmodies.listener.BuildListener;
 import de.oldspielmodies.listener.PlayerCoinsChangeListener;
 import de.oldspielmodies.listener.PlayerConnetionListener;
 import de.oldspielmodies.manager.AnimalManager;
+import de.oldspielmodies.scoreboard.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -26,6 +27,7 @@ public class Lobbysystem extends JavaPlugin {
     public void onEnable() {
 
         if(instance == null){
+            instance = this;
             init(Bukkit.getPluginManager());
             Bukkit.getConsoleSender().sendMessage(PREFIX + "Das Plugin wurde erfolgreich aktiviert!");
         }
@@ -41,6 +43,8 @@ public class Lobbysystem extends JavaPlugin {
     private void init(final PluginManager pluginManager){
 
         AnimalManager.removeAnimals();
+        ScoreboardManager scoreboardManager = new ScoreboardManager();
+        scoreboardManager.startAnimation();
         getServer().getPluginCommand("setwarp").setExecutor(new SetWarpsCommand());
         getServer().getPluginCommand("build").setExecutor(new BuildCommand());
         pluginManager.registerEvents(new PlayerConnetionListener(), this);
