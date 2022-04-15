@@ -41,7 +41,6 @@ public class Lobbysystem extends JavaPlugin {
 
         AnimalManager.removeAnimals();
         getServer().getPluginCommand("setwarp").setExecutor(new SetWarpsCommand());
-        getServer().getPluginCommand("build").setExecutor(new BuildCommand());
         pluginManager.registerEvents(new PlayerConnetionListener(), this);
         pluginManager.registerEvents(new CompassInteract(), this);
         pluginManager.registerEvents(new BuildListener(), this);
