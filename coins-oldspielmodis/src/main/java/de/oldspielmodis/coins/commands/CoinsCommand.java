@@ -21,13 +21,17 @@ public class CoinsCommand implements CommandExecutor {
                 } else if(args.length == 3 && args[0].equalsIgnoreCase("add")){
                     if(p.hasPermission("oldspielmodis.coins")) {
                         Player target = Bukkit.getPlayer(args[1]);
-                        int amount = Integer.parseInt(args[2]);
-                        if (amount <= 0) {
-                            p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
+                        if(target != null) {
+                            int amount = Integer.parseInt(args[2]);
+                            if (amount <= 0) {
+                                p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
+                            } else {
+                                coins.addCoins(target.getUniqueId().toString(), amount);
+                                p.sendMessage(Coinssystem.PREFIX + "You have added " + amount + " coins to the player " + target.getName() + ".");
+                                target.sendMessage(Coinssystem.PREFIX + "You have been added " + amount + " coins.");
+                            }
                         } else {
-                            coins.addCoins(target.getUniqueId().toString(), amount);
-                            p.sendMessage(Coinssystem.PREFIX + "You have added " + amount + " coins to the player " + target.getName() + ".");
-                            target.sendMessage(Coinssystem.PREFIX + "You have been added " + amount + " coins.");
+                            p.sendMessage(Coinssystem.PREFIX + "§cThis player is not on the network!");
                         }
                     } else {
                         p.sendMessage(Coinssystem.NO_PERMS);
@@ -35,15 +39,19 @@ public class CoinsCommand implements CommandExecutor {
                 } else if(args.length == 3 && args[0].equalsIgnoreCase("remove")){
                     if(p.hasPermission("oldspielmodis.coins")) {
                         Player target = Bukkit.getPlayer(args[1]);
-                        int amount = Integer.parseInt(args[2]);
-                        if (amount <= 0) {
-                            p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
-                        } else if(coins.getCoins(target.getUniqueId().toString()) <= 0) {
-                            p.sendMessage(Coinssystem.PREFIX + "§cThis player " + target.getName() + " has 0 coins in the account!");
+                        if(target != null) {
+                            int amount = Integer.parseInt(args[2]);
+                            if (amount <= 0) {
+                                p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
+                            } else if (coins.getCoins(target.getUniqueId().toString()) <= 0) {
+                                p.sendMessage(Coinssystem.PREFIX + "§cThis player " + target.getName() + " has 0 coins in the account!");
+                            } else {
+                                coins.removeCoins(target.getUniqueId().toString(), amount);
+                                p.sendMessage(Coinssystem.PREFIX + "You have deducted " + amount + " coins from the player " + target.getName() + ".");
+                                target.sendMessage(Coinssystem.PREFIX + "You have been deducted " + amount + " coins.");
+                            }
                         } else {
-                            coins.removeCoins(target.getUniqueId().toString(), amount);
-                            p.sendMessage(Coinssystem.PREFIX + "You have deducted " + amount + " coins from the player " + target.getName() + ".");
-                            target.sendMessage(Coinssystem.PREFIX + "You have been deducted " + amount + " coins.");
+                            p.sendMessage(Coinssystem.PREFIX + "§cThis player is not on the network!");
                         }
                     } else {
                         p.sendMessage(Coinssystem.NO_PERMS);
@@ -51,13 +59,17 @@ public class CoinsCommand implements CommandExecutor {
                 } else if(args.length == 3 && args[0].equalsIgnoreCase("set")){
                     if(p.hasPermission("oldspielmodis.coins")) {
                         Player target = Bukkit.getPlayer(args[1]);
-                        int amount = Integer.parseInt(args[2]);
-                        if (amount <= 0) {
-                            p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
+                        if(target != null) {
+                            int amount = Integer.parseInt(args[2]);
+                            if (amount <= 0) {
+                                p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
+                            } else {
+                                coins.setCoins(target.getUniqueId().toString(), amount);
+                                p.sendMessage(Coinssystem.PREFIX + "You have set the player " + target.getName() + "'s coins to " + amount + ".");
+                                target.sendMessage(Coinssystem.PREFIX + "You have been set the coins to " + amount + ".");
+                            }
                         } else {
-                            coins.setCoins(target.getUniqueId().toString(), amount);
-                            p.sendMessage(Coinssystem.PREFIX + "You have set the player " + target.getName() + "'s coins to " + amount + ".");
-                            target.sendMessage(Coinssystem.PREFIX + "You have been set the coins to " + amount + ".");
+                            p.sendMessage(Coinssystem.PREFIX + "§cThis player is not on the network!");
                         }
                     } else {
                         p.sendMessage(Coinssystem.NO_PERMS);
