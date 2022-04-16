@@ -29,6 +29,7 @@ public class BuildCommand implements CommandExecutor {
                             p.setGameMode(GameMode.SURVIVAL);
                             p.getInventory().clear();
                             p.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());
+                            p.getInventory().setItem(2, new ItemManager(Material.REDSTONE_COMPARATOR).setDisplayName("§8» §eSettings §8┃ §7Rightclick").toItemStack());
                         }
                     } else if(args.length == 1){
                         Player t = Bukkit.getPlayer(args[0]);
@@ -45,6 +46,7 @@ public class BuildCommand implements CommandExecutor {
                             t.setGameMode(GameMode.SURVIVAL);
                             t.getInventory().clear();
                             t.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());
+                            t.getInventory().setItem(2, new ItemManager(Material.REDSTONE_COMPARATOR).setDisplayName("§8» §eSettings §8┃ §7Rightclick").toItemStack());
                         }
                     }
                 } else {

@@ -1,6 +1,7 @@
 package de.oldspielmodies.data;
 
 import de.oldspielmodies.manager.ItemManager;
+import de.oldspielmodies.mysql.Setting;
 import de.oldspielmodies.scoreboard.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -18,7 +19,11 @@ public class Data {
         player.setLevel(2022);
 
         player.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());
-        new ScoreboardManager().setBoard(player);
+        player.getInventory().setItem(2, new ItemManager(Material.REDSTONE_COMPARATOR).setDisplayName("§8» §eSettings §8┃ §7Rightclick").toItemStack());
+        Setting setting = new Setting();
+        if(!setting.hasSetting(player.getUniqueId().toString(), "scoreboard")) {
+            new ScoreboardManager().setBoard(player);
+        }
 
 
     }
