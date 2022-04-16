@@ -1,7 +1,6 @@
 package de.oldspielmodies.mysql;
 
 import de.oldspielmodies.lobby.Lobbysystem;
-import de.oldspielmodies.manager.MySQL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

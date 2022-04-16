@@ -20,6 +20,7 @@ public class Data {
 
         player.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());
         player.getInventory().setItem(2, new ItemManager(Material.REDSTONE_COMPARATOR).setDisplayName("§8» §eSettings §8┃ §7Rightclick").toItemStack());
+        player.getInventory().setItem(6, new ItemManager(Material.FISHING_ROD).setDisplayName("§8» §eGrappling hook §8┃ §7Rightclick").toItemStack());
         Setting setting = new Setting();
         if(!setting.hasSetting(player.getUniqueId().toString(), "scoreboard")) {
             new ScoreboardManager().setBoard(player);

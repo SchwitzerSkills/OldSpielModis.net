@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.Inventory;
 
 public class SettingsInteract implements Listener {
@@ -27,14 +28,20 @@ public class SettingsInteract implements Listener {
 
                     Setting setting = new Setting();
                     if(!setting.hasSetting(p.getUniqueId().toString(), "scoreboard")) {
-                        inv.setItem(12, new ItemManager(Material.COMMAND).setDisplayName("§8» §eScoreboard §8┃ §7Rightclick").setLore("§aEnabled").toItemStack());
+                        inv.setItem(11, new ItemManager(Material.COMMAND).setDisplayName("§8» §eScoreboard §8┃ §7Rightclick").setLore("§aEnabled").toItemStack());
                     } else {
-                        inv.setItem(12, new ItemManager(Material.COMMAND).setDisplayName("§8» §eScoreboard §8┃ §7Rightclick").setLore("§cDisabled").toItemStack());
+                        inv.setItem(11, new ItemManager(Material.COMMAND).setDisplayName("§8» §eScoreboard §8┃ §7Rightclick").setLore("§cDisabled").toItemStack());
                     }
                     if(setting.hasSetting(p.getUniqueId().toString(), "spawn")) {
-                        inv.setItem(14, new ItemManager(Material.GLOWSTONE).setDisplayName("§8» §eJoin at the spawn §8┃ §7Rightclick").setLore("§aEnabled").toItemStack());
+                        inv.setItem(13, new ItemManager(Material.GLOWSTONE).setDisplayName("§8» §eJoin at the spawn §8┃ §7Rightclick").setLore("§aEnabled").toItemStack());
                     } else {
-                        inv.setItem(14, new ItemManager(Material.GLOWSTONE).setDisplayName("§8» §eJoin at the spawn §8┃ §7Rightclick").setLore("§cDisabled").toItemStack());
+                        inv.setItem(13, new ItemManager(Material.GLOWSTONE).setDisplayName("§8» §eJoin at the spawn §8┃ §7Rightclick").setLore("§cDisabled").toItemStack());
+                    }
+
+                    if(setting.hasSetting(p.getUniqueId().toString(), "inv")) {
+                        inv.setItem(15, new ItemManager(Material.NOTE_BLOCK).setDisplayName("§8» §eScrollsound §8┃ §7Rightclick").setLore("§aEnabled").toItemStack());
+                    } else {
+                        inv.setItem(15, new ItemManager(Material.NOTE_BLOCK).setDisplayName("§8» §eScrollsound §8┃ §7Rightclick").setLore("§cDisabled").toItemStack());
                     }
 
                     p.openInventory(inv);
@@ -75,6 +82,28 @@ public class SettingsInteract implements Listener {
                     p.sendMessage(Lobbysystem.PREFIX + "You have disabled join at the spawn.");
                 }
             }
+        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eScrollsound §8┃ §7Rightclick")) {
+            if(e.getCurrentItem().getType() == Material.NOTE_BLOCK){
+                p.closeInventory();
+                p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 10);
+                Setting setting = new Setting();
+                if(!setting.hasSetting(p.getUniqueId().toString(), "inv")) {
+                    setting.setSetting(p.getUniqueId().toString(), "inv");
+                    p.sendMessage(Lobbysystem.PREFIX + "You have activated the scrollsound.");
+                } else {
+                    setting.removeSetting(p.getUniqueId().toString(), "inv");
+                    p.sendMessage(Lobbysystem.PREFIX + "You have disabled the scrollsound.");
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onScroll(PlayerItemHeldEvent e){
+        Player p = e.getPlayer();
+        Setting setting = new Setting();
+        if (setting.hasSetting(p.getUniqueId().toString(), "inv")) {
+            p.playSound(p.getLocation(), Sound.CLICK, 10, 10);
         }
     }
 }

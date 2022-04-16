@@ -1,7 +1,6 @@
 package de.oldspielmodis.coins.commands;
 
 import de.oldspielmodis.coins.Coinssystem;
-import de.oldspielmodis.coins.event.PlayerCoinsChangeEvent;
 import de.oldspielmodis.coins.mysql.Coins;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -74,6 +73,8 @@ public class CoinsCommand implements CommandExecutor {
                     } else {
                         p.sendMessage(Coinssystem.NO_PERMS);
                     }
+                } else {
+                    p.sendMessage(Coinssystem.PREFIX + "§7Please use §e/coins\n§e/coins add §8(§eName§8) §8(§eAmount§8)\n§e/coins set §8(§eName§8) §8(§eAmount§8)\n§e/coins remove §8(§eName§8) §8(§eAmount§8)");
                 }
             }
         }

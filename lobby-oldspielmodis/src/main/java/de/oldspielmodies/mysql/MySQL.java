@@ -1,4 +1,4 @@
-package de.oldspielmodies.manager;
+package de.oldspielmodies.mysql;
 
 import com.google.common.base.Preconditions;
 import com.google.common.cache.CacheBuilder;

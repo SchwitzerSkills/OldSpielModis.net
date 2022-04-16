@@ -5,11 +5,14 @@ import de.oldspielmodies.commands.SetWarpsCommand;
 import de.oldspielmodies.items.CompassInteract;
 import de.oldspielmodies.items.SettingsInteract;
 import de.oldspielmodies.listener.BuildListener;
+import de.oldspielmodies.listener.GrapplinghookListener;
 import de.oldspielmodies.listener.PlayerCoinsChangeListener;
 import de.oldspielmodies.listener.PlayerConnetionListener;
 import de.oldspielmodies.manager.ActionbarManager;
 import de.oldspielmodies.manager.AnimalManager;
-import de.oldspielmodies.manager.MySQL;
+import de.oldspielmodies.manager.CircleManager;
+import de.oldspielmodies.manager.LocationManager;
+import de.oldspielmodies.mysql.MySQL;
 import de.oldspielmodies.mysql.Setting;
 import de.oldspielmodies.scoreboard.ScoreboardManager;
 import org.bukkit.Bukkit;
@@ -70,6 +73,9 @@ public class Lobbysystem extends JavaPlugin {
         ActionbarManager actionbarManager = new ActionbarManager();
         actionbarManager.createFile();
         actionbarManager.sendActionbar();
+        CircleManager circleManager = new CircleManager();
+        LocationManager locationManager = new LocationManager();
+        circleManager.drawCircle(locationManager.getLocation("spawn"), (float) 1.5);
         getServer().getPluginCommand("setwarp").setExecutor(new SetWarpsCommand());
         getServer().getPluginCommand("build").setExecutor(new BuildCommand());
         pluginManager.registerEvents(new PlayerConnetionListener(), this);
@@ -77,6 +83,7 @@ public class Lobbysystem extends JavaPlugin {
         pluginManager.registerEvents(new BuildListener(), this);
         pluginManager.registerEvents(new PlayerCoinsChangeListener(), this);
         pluginManager.registerEvents(new SettingsInteract(), this);
+        pluginManager.registerEvents(new GrapplinghookListener(), this);
 
     }
 

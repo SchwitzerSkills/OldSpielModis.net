@@ -30,6 +30,7 @@ public class BuildCommand implements CommandExecutor {
                             p.getInventory().clear();
                             p.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());
                             p.getInventory().setItem(2, new ItemManager(Material.REDSTONE_COMPARATOR).setDisplayName("§8» §eSettings §8┃ §7Rightclick").toItemStack());
+                            p.getInventory().setItem(6, new ItemManager(Material.FISHING_ROD).setDisplayName("§8» §eGrappling hook §8┃ §7Rightclick").toItemStack());
                         }
                     } else if(args.length == 1){
                         Player t = Bukkit.getPlayer(args[0]);
@@ -47,6 +48,7 @@ public class BuildCommand implements CommandExecutor {
                             t.getInventory().clear();
                             t.getInventory().setItem(4, new ItemManager(Material.COMPASS).setDisplayName("§8» §eCompass §8┃ §7Rightclick").toItemStack());
                             t.getInventory().setItem(2, new ItemManager(Material.REDSTONE_COMPARATOR).setDisplayName("§8» §eSettings §8┃ §7Rightclick").toItemStack());
+                            t.getInventory().setItem(6, new ItemManager(Material.FISHING_ROD).setDisplayName("§8» §eGrappling hook §8┃ §7Rightclick").toItemStack());
                         }
                     }
                 } else {
