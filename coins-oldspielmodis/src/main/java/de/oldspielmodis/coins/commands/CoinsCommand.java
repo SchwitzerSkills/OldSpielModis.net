@@ -8,6 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.text.DecimalFormat;
+
 public class CoinsCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
@@ -16,7 +18,14 @@ public class CoinsCommand implements CommandExecutor {
                 Player p = (Player) cs;
                 Coins coins = new Coins();
                 if(args.length == 0){
-                    p.sendMessage(Coinssystem.PREFIX + "You have §e§l" + coins.getCoins(p.getUniqueId().toString()) + "§7 Coins.");
+                    if(coins.getCoins(p.getUniqueId().toString()) >= 1000){
+                        DecimalFormat nf = new DecimalFormat();
+                        String ausgabe = nf.format(coins.getCoins(p.getUniqueId().toString()));
+                        ausgabe = ausgabe.replace(",", ".");
+                        p.sendMessage(Coinssystem.PREFIX + "You have §e§l" + ausgabe + "§7 Coins.");
+                    } else {
+                        p.sendMessage(Coinssystem.PREFIX + "You have §e§l" + coins.getCoins(p.getUniqueId().toString()) + "§7 Coins.");
+                    }
                 } else if(args.length == 3 && args[0].equalsIgnoreCase("add")){
                     if(p.hasPermission("oldspielmodis.coins")) {
                         Player target = Bukkit.getPlayer(args[1]);
@@ -24,6 +33,10 @@ public class CoinsCommand implements CommandExecutor {
                             int amount = Integer.parseInt(args[2]);
                             if (amount <= 0) {
                                 p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
+                            } else if(amount >= 999999999){
+                                p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not exceed 1 billion!");
+                            } else if(coins.getCoins(p.getUniqueId().toString()) == 1000000000){
+                                p.sendMessage(Coinssystem.PREFIX + "§cHis account must not be over 1 billion coins!");
                             } else {
                                 coins.addCoins(target.getUniqueId().toString(), amount);
                                 p.sendMessage(Coinssystem.PREFIX + "You have added " + amount + " coins to the player " + target.getName() + ".");
@@ -42,8 +55,10 @@ public class CoinsCommand implements CommandExecutor {
                             int amount = Integer.parseInt(args[2]);
                             if (amount <= 0) {
                                 p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
-                            } else if (coins.getCoins(target.getUniqueId().toString()) <= 0) {
+                            } else if (coins.getCoins(target.getUniqueId().toString()) <= amount) {
                                 p.sendMessage(Coinssystem.PREFIX + "§cThis player " + target.getName() + " has 0 coins in the account!");
+                            }else if(amount >= 1000000000){
+                                p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not exceed 1 billion!");
                             } else {
                                 coins.removeCoins(target.getUniqueId().toString(), amount);
                                 p.sendMessage(Coinssystem.PREFIX + "You have deducted " + amount + " coins from the player " + target.getName() + ".");
@@ -60,8 +75,10 @@ public class CoinsCommand implements CommandExecutor {
                         Player target = Bukkit.getPlayer(args[1]);
                         if(target != null) {
                             int amount = Integer.parseInt(args[2]);
-                            if (amount <= 0) {
-                                p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not be 0 or below 0!");
+                            if (amount < 0) {
+                                p.sendMessage(Coinssystem.PREFIX + "§cThe number of the coins must not be less than 0!");
+                            } else if(amount >= 1000000000){
+                                p.sendMessage(Coinssystem.PREFIX + "§cThe number of coins must not exceed 1 billion!");
                             } else {
                                 coins.setCoins(target.getUniqueId().toString(), amount);
                                 p.sendMessage(Coinssystem.PREFIX + "You have set the player " + target.getName() + "'s coins to " + amount + ".");

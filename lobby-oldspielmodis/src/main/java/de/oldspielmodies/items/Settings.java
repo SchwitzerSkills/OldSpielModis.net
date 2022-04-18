@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.Inventory;
 
-public class SettingsInteract implements Listener {
+public class Settings implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e){
@@ -52,49 +52,52 @@ public class SettingsInteract implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e){
-        Player p = (Player) e.getWhoClicked();
-        if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eScoreboard §8┃ §7Rightclick")) {
-            if(e.getCurrentItem().getType() == Material.COMMAND){
-                p.closeInventory();
-                p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 10);
-                ScoreboardManager scoreboardManager = new ScoreboardManager();
-                Setting setting = new Setting();
-                if(!setting.hasSetting(p.getUniqueId().toString(), "scoreboard")) {
-                    setting.setSetting(p.getUniqueId().toString(), "scoreboard");
-                    p.sendMessage(Lobbysystem.PREFIX + "You have disabled the scoreboard.");
-                    scoreboardManager.removeBoard(p);
-                } else {
-                    setting.removeSetting(p.getUniqueId().toString(), "scoreboard");
-                    p.sendMessage(Lobbysystem.PREFIX + "You have activated the scoreboard.");
-                    scoreboardManager.setBoardMain(p);
+        try {
+            Player p = (Player) e.getWhoClicked();
+            if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eScoreboard §8┃ §7Rightclick")) {
+                if (e.getCurrentItem().getType() == Material.COMMAND) {
+                    p.closeInventory();
+                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 10);
+                    ScoreboardManager scoreboardManager = new ScoreboardManager();
+                    Setting setting = new Setting();
+                    if (!setting.hasSetting(p.getUniqueId().toString(), "scoreboard")) {
+                        setting.setSetting(p.getUniqueId().toString(), "scoreboard");
+                        p.sendMessage(Lobbysystem.PREFIX + "You have disabled the scoreboard.");
+                        scoreboardManager.removeBoard(p);
+                    } else {
+                        setting.removeSetting(p.getUniqueId().toString(), "scoreboard");
+                        p.sendMessage(Lobbysystem.PREFIX + "You have activated the scoreboard.");
+                        scoreboardManager.setBoardMain(p);
+                    }
+                }
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eJoin at the spawn §8┃ §7Rightclick")) {
+                if (e.getCurrentItem().getType() == Material.GLOWSTONE) {
+                    p.closeInventory();
+                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 10);
+                    Setting setting = new Setting();
+                    if (!setting.hasSetting(p.getUniqueId().toString(), "spawn")) {
+                        setting.setSetting(p.getUniqueId().toString(), "spawn");
+                        p.sendMessage(Lobbysystem.PREFIX + "You have activated join at the spawn.");
+                    } else {
+                        setting.removeSetting(p.getUniqueId().toString(), "spawn");
+                        p.sendMessage(Lobbysystem.PREFIX + "You have disabled join at the spawn.");
+                    }
+                }
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eScrollsound §8┃ §7Rightclick")) {
+                if (e.getCurrentItem().getType() == Material.NOTE_BLOCK) {
+                    p.closeInventory();
+                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 10);
+                    Setting setting = new Setting();
+                    if (!setting.hasSetting(p.getUniqueId().toString(), "inv")) {
+                        setting.setSetting(p.getUniqueId().toString(), "inv");
+                        p.sendMessage(Lobbysystem.PREFIX + "You have activated the scrollsound.");
+                    } else {
+                        setting.removeSetting(p.getUniqueId().toString(), "inv");
+                        p.sendMessage(Lobbysystem.PREFIX + "You have disabled the scrollsound.");
+                    }
                 }
             }
-        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eJoin at the spawn §8┃ §7Rightclick")) {
-            if(e.getCurrentItem().getType() == Material.GLOWSTONE){
-                p.closeInventory();
-                p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 10);
-                Setting setting = new Setting();
-                if(!setting.hasSetting(p.getUniqueId().toString(), "spawn")) {
-                    setting.setSetting(p.getUniqueId().toString(), "spawn");
-                    p.sendMessage(Lobbysystem.PREFIX + "You have activated join at the spawn.");
-                } else {
-                    setting.removeSetting(p.getUniqueId().toString(), "spawn");
-                    p.sendMessage(Lobbysystem.PREFIX + "You have disabled join at the spawn.");
-                }
-            }
-        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eScrollsound §8┃ §7Rightclick")) {
-            if(e.getCurrentItem().getType() == Material.NOTE_BLOCK){
-                p.closeInventory();
-                p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 10);
-                Setting setting = new Setting();
-                if(!setting.hasSetting(p.getUniqueId().toString(), "inv")) {
-                    setting.setSetting(p.getUniqueId().toString(), "inv");
-                    p.sendMessage(Lobbysystem.PREFIX + "You have activated the scrollsound.");
-                } else {
-                    setting.removeSetting(p.getUniqueId().toString(), "inv");
-                    p.sendMessage(Lobbysystem.PREFIX + "You have disabled the scrollsound.");
-                }
-            }
+        } catch (Exception e1){
         }
     }
 

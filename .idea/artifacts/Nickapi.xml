@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Nickapi">
+    <output-path>$PROJECT_DIR$/../../OldSpielModis.de</output-path>
+    <root id="archive" name="Nickapi.jar">
+      <element id="module-output" name="nickapi-oldspielmodis" />
+      <element id="file-copy" path="$PROJECT_DIR$/nickapi-oldspielmodis/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>

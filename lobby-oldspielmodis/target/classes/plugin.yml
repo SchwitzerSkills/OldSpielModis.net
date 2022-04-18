@@ -5,3 +5,4 @@ main: de.oldspielmodies.lobby.Lobbysystem
 commands:
   setwarp:
   build:
+  news:

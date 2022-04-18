@@ -1,7 +1,6 @@
 package de.oldspielmodies.manager;
 
 import org.bukkit.Color;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -53,6 +52,13 @@ public class ItemManager {
     public ItemManager setDisplayName(String name) {
         ItemMeta im = is.getItemMeta();
         im.setDisplayName(name);
+        is.setItemMeta(im);
+        return this;
+    }
+
+    public ItemManager addItemFlags(ItemFlag flag) {
+        ItemMeta im = is.getItemMeta();
+        im.addItemFlags(flag);
         is.setItemMeta(im);
         return this;
     }

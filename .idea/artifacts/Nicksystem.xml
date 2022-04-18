@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Nicksystem">
+    <output-path>$PROJECT_DIR$/../../OldSpielModis.de</output-path>
+    <root id="archive" name="Nicksystem.jar">
+      <element id="module-output" name="nicksystem-oldspielmodis" />
+      <element id="file-copy" path="$PROJECT_DIR$/nicksystem-oldspielmodis/src/main/resources/plugin.yml" />
+      <element id="module-output" name="nicktool-oldspielmodis" />
+    </root>
+  </artifact>
+</component>

@@ -12,9 +12,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
-public class CompassInteract implements Listener {
+public class Compass implements Listener {
 
     @EventHandler
     public void onCompass(final PlayerInteractEvent event){

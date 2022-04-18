@@ -1,6 +1,7 @@
 package de.oldspielmodies.listener;
 
 import de.oldspielmodies.lobby.Lobbysystem;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -73,6 +74,8 @@ public class BuildListener implements Listener {
 
     @EventHandler
     public void onSpawn(CreatureSpawnEvent e){
-        e.setCancelled(true);
+        if(e.getEntity().getType() != EntityType.ARMOR_STAND) {
+            e.setCancelled(true);
+        }
     }
 }

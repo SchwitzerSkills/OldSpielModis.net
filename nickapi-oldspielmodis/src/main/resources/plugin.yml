@@ -1,0 +1,6 @@
+main: de.oldspielmodis.spigot.nick.Nickapi
+name: Nickapi
+author: OldSpielModis Development Team
+version: 1.0
+
+commands:
