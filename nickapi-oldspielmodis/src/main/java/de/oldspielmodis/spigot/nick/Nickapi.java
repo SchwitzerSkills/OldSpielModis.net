@@ -1,11 +1,10 @@
 package de.oldspielmodis.spigot.nick;
 
-import com.mojang.authlib.GameProfile;
+import de.oldspielmodis.spigot.nick.commands.UnnickCommand;
 import de.oldspielmodis.spigot.nick.listeners.JoinListener;
 import de.oldspielmodis.spigot.nick.mysql.MySQL;
 import de.oldspielmodis.spigot.nick.mysql.Nick;
-import de.oldspielmodis.spigot.nick.utils.NickUtils;
-import de.oldspielmodis.spigot.nick.utils.Nickname;
+import de.oldspielmodis.spigot.nick.mysql.Nickname;
 import eu.thesimplecloud.module.permission.PermissionPool;
 import eu.thesimplecloud.module.permission.player.IPermissionPlayer;
 import eu.thesimplecloud.module.permission.player.PlayerPermissionGroupInfo;
@@ -15,7 +14,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.lang.reflect.Field;
 
 public class Nickapi extends JavaPlugin {
 
@@ -64,7 +62,7 @@ public class Nickapi extends JavaPlugin {
     }
 
     public void registerCommands(){
-
+        getCommand("unnick").setExecutor(new UnnickCommand());
     }
 
     public void createFile(){
@@ -94,36 +92,42 @@ public class Nickapi extends JavaPlugin {
         Bukkit.getOnlinePlayers().forEach(all -> {
             if(nick.isNicked(all.getUniqueId().toString())) {
                 if (nick.isRegistered(all.getUniqueId().toString())) {
-                    if (nickname.NicknamesExists()) {
-                        nickname.addNickname(nick.getID(all.getUniqueId().toString()), all.getName());
-                        nick.updateNicked(all.getUniqueId().toString(), "-");
-                        nick.updateID(all.getUniqueId().toString(), "-");
+                        if (!nickname.IDExist(nick.getID(all.getUniqueId().toString()))) {
+                            if(!nickname.NicknamesExists(all.getName())) {
+                                nickname.addNickname(nick.getID(all.getUniqueId().toString()), all.getName());
+                            }
+                            nick.updateNicked(all.getUniqueId().toString(), "-");
+                            nick.updateID(all.getUniqueId().toString(), "-");
 
-                        IPermissionPlayer permissionPlayer = PermissionPool.getInstance().getPermissionPlayerManager().getCachedPermissionPlayer(all.getUniqueId());
-                        if (permissionPlayer.hasPermissionGroup("NickedAdmin")) {
-                            permissionPlayer.removePermissionGroup("NickedAdmin");
-                            permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Admin", -1));
-                            permissionPlayer.update();
-                        } else if (permissionPlayer.hasPermissionGroup("NickedBuilder")) {
-                            permissionPlayer.removePermissionGroup("NickedBuilder");
-                            permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Builder", -1));
-                            permissionPlayer.update();
-                        } else if (permissionPlayer.hasPermissionGroup("NickedContent")) {
-                            permissionPlayer.removePermissionGroup("NickedContent");
-                            permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Content", -1));
-                            permissionPlayer.update();
-                        } else if (permissionPlayer.hasPermissionGroup("NickedDeveloper")) {
-                            permissionPlayer.removePermissionGroup("NickedDeveloper");
-                            permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Developer", -1));
-                            permissionPlayer.update();
-                        } else if (permissionPlayer.hasPermissionGroup("NickedModerator")) {
-                            permissionPlayer.removePermissionGroup("NickedModerator");
-                            permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Moderator", -1));
-                            permissionPlayer.update();
+                            IPermissionPlayer permissionPlayer = PermissionPool.getInstance().getPermissionPlayerManager().getCachedPermissionPlayer(all.getUniqueId());
+                            if (permissionPlayer.hasPermissionGroup("NickedAdmin")) {
+                                permissionPlayer.removePermissionGroup("NickedAdmin");
+                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Admin", -1));
+                                permissionPlayer.update();
+                            } else if (permissionPlayer.hasPermissionGroup("NickedBuilder")) {
+                                permissionPlayer.removePermissionGroup("NickedBuilder");
+                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Builder", -1));
+                                permissionPlayer.update();
+                            } else if (permissionPlayer.hasPermissionGroup("NickedContent")) {
+                                permissionPlayer.removePermissionGroup("NickedContent");
+                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Content", -1));
+                                permissionPlayer.update();
+                            } else if (permissionPlayer.hasPermissionGroup("NickedDeveloper")) {
+                                permissionPlayer.removePermissionGroup("NickedDeveloper");
+                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Developer", -1));
+                                permissionPlayer.update();
+                            } else if (permissionPlayer.hasPermissionGroup("NickedModerator")) {
+                                permissionPlayer.removePermissionGroup("NickedModerator");
+                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Moderator", -1));
+                                permissionPlayer.update();
+                            } else if (permissionPlayer.hasPermissionGroup("NickedSupporter")) {
+                                permissionPlayer.removePermissionGroup("NickedSupporter");
+                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Supporter", -1));
+                                permissionPlayer.update();
+                            }
                         }
                     }
                 }
-            }
         });
     }
 }

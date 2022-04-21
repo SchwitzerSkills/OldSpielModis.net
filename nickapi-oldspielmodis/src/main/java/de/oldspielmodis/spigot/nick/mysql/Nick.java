@@ -11,7 +11,7 @@ public class Nick {
 
     public void createTable(){
         this.mySQL = Nickapi.getInstance().getMySQL();
-        mySQL.update("CREATE TABLE IF NOT EXISTS Nick (UUID VARCHAR(100), NICKED VARCHAR(100), ID VARCHAR(100), ISNICKED VARCHAR(100))");
+        mySQL.update("CREATE TABLE IF NOT EXISTS Nick (UUID VARCHAR(100), NAME VARCHAR(100), NICKED VARCHAR(100), ID VARCHAR(100), ISNICKED VARCHAR(100))");
     }
 
     public boolean isRegistered(String uuid){
@@ -26,9 +26,9 @@ public class Nick {
         return false;
     }
 
-    public void register(String uuid, String nicked, String id, boolean isnicked){
+    public void register(String uuid, String name, String nicked, String id, boolean isnicked){
         this.mySQL = Nickapi.getInstance().getMySQL();
-        mySQL.update("INSERT INTO Nick (UUID, NICKED, ID, ISNICKED) VALUES ('" + uuid + "', '" + nicked + "', '" + id + "', '" + isnicked + "')");
+        mySQL.update("INSERT INTO Nick (UUID, NAME, NICKED, ID, ISNICKED) VALUES ('" + uuid + "', '" + name + "', '" + nicked + "', '" + id + "', '" + isnicked + "')");
     }
 
     public void updateNicked(String uuid, String nicked){
@@ -68,6 +68,30 @@ public class Nick {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public String getName(String uuid){
+        this.mySQL = Nickapi.getInstance().getMySQL();
+        try (ResultSet rs = mySQL.query("SELECT * FROM Nick WHERE UUID=?", uuid)){
+            if(rs.next()){
+                return rs.getString("NAME");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public boolean getNick(String uuid, String nicked){
+        this.mySQL = Nickapi.getInstance().getMySQL();
+        try (ResultSet rs = mySQL.query("SELECT * FROM Nick WHERE UUID=? AND NICKED=?", uuid, nicked)){
+            if(rs.next()){
+                return rs.getString("NICKED") != null;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public String getID(String uuid){

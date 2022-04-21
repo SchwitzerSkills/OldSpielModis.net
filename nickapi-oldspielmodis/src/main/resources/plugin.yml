@@ -4,3 +4,4 @@ author: OldSpielModis Development Team
 version: 1.0
 
 commands:
+  unnick:

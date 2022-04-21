@@ -42,6 +42,8 @@ public class NewsCommand implements CommandExecutor {
                         } else {
                             p.sendMessage(Lobbysystem.PREFIX + "§cThere are no news!");
                         }
+                    } else {
+                        p.sendMessage(Lobbysystem.PREFIX + "Please use §e/news §8(§eID§8) §8(§eDate MM/dd/yyyy§8) §8(§eMessage§8)\n§e/news remove §8(§eID§8)\n§e/news list");
                     }
                 } else {
                     p.sendMessage(Lobbysystem.NO_PERMS);

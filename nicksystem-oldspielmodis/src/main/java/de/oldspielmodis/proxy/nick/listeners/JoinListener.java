@@ -14,7 +14,7 @@ public class JoinListener implements Listener {
         if (p.hasPermission("oldspielmodis.youtuber")) {
             Nick nick = new Nick();
             if(!nick.isRegistered(p.getUniqueId().toString())){
-                nick.register(p.getUniqueId().toString(), "-", "-", false);
+                nick.register(p.getUniqueId().toString(),  p.getName(),"-", "-", false);
             }
         }
     }

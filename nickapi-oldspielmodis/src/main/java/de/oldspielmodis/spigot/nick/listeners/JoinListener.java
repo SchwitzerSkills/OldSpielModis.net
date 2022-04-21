@@ -3,12 +3,8 @@ package de.oldspielmodis.spigot.nick.listeners;
 import de.oldspielmodis.spigot.nick.Nickapi;
 import de.oldspielmodis.spigot.nick.mysql.Nick;
 import de.oldspielmodis.spigot.nick.utils.NickUtils;
-import de.oldspielmodis.spigot.nick.utils.Nickname;
-import eu.thesimplecloud.api.CloudAPI;
-import eu.thesimplecloud.api.player.ICloudPlayer;
-import eu.thesimplecloud.clientserverapi.lib.promise.ICommunicationPromise;
+import de.oldspielmodis.spigot.nick.mysql.Nickname;
 import eu.thesimplecloud.module.permission.PermissionPool;
-import eu.thesimplecloud.module.permission.group.IPermissionGroup;
 import eu.thesimplecloud.module.permission.player.IPermissionPlayer;
 import eu.thesimplecloud.module.permission.player.PlayerPermissionGroupInfo;
 import org.bukkit.entity.Player;
@@ -64,6 +60,10 @@ public class JoinListener implements Listener {
                      permissionPlayer.removePermissionGroup("Moderator");
                      permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("NickedModerator", -1));
                      permissionPlayer.update();
+                 } else if(permissionPlayer.hasPermissionGroup("Supporter")) {
+                     permissionPlayer.removePermissionGroup("Supporter");
+                     permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("NickedSupporter", -1));
+                     permissionPlayer.update();
                  }
                  p.sendMessage(Nickapi.PREFIX + "You are nicked as " + p.getName());
              } else {
@@ -73,13 +73,15 @@ public class JoinListener implements Listener {
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent e){
+    public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         Nickname nickname = new Nickname();
         Nick nick = new Nick();
-        if(nick.isNicked(p.getUniqueId().toString())) {
-            if (nickname.NicknamesExists()) {
-                nickname.addNickname(nick.getID(p.getUniqueId().toString()), p.getName());
+        if (nick.isNicked(p.getUniqueId().toString())) {
+            if (!nickname.IDExist(nick.getID(p.getUniqueId().toString()))) {
+                if(!nickname.NicknamesExists(p.getName())) {
+                    nickname.addNickname(nick.getID(p.getUniqueId().toString()), p.getName());
+                }
                 nick.updateNicked(p.getUniqueId().toString(), "-");
                 nick.updateID(p.getUniqueId().toString(), "-");
                 IPermissionPlayer permissionPlayer = PermissionPool.getInstance().getPermissionPlayerManager().getCachedPermissionPlayer(p.getUniqueId());
@@ -102,6 +104,10 @@ public class JoinListener implements Listener {
                 } else if (permissionPlayer.hasPermissionGroup("NickedModerator")) {
                     permissionPlayer.removePermissionGroup("NickedModerator");
                     permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Moderator", -1));
+                    permissionPlayer.update();
+                } else if (permissionPlayer.hasPermissionGroup("NickedSupporter")) {
+                    permissionPlayer.removePermissionGroup("NickedSupporter");
+                    permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Supporter", -1));
                     permissionPlayer.update();
                 }
             }
@@ -109,13 +115,15 @@ public class JoinListener implements Listener {
     }
 
     @EventHandler
-    public void onKick(PlayerKickEvent e){
+    public void onKick(PlayerKickEvent e) {
         Player p = e.getPlayer();
         Nickname nickname = new Nickname();
         Nick nick = new Nick();
-        if(nick.isNicked(p.getUniqueId().toString())) {
-            if (nickname.NicknamesExists()) {
-                nickname.addNickname(nick.getID(p.getUniqueId().toString()), p.getName());
+        if (nick.isNicked(p.getUniqueId().toString())) {
+            if (!nickname.IDExist(nick.getID(p.getUniqueId().toString()))) {
+                if(!nickname.NicknamesExists(p.getName())) {
+                    nickname.addNickname(nick.getID(p.getUniqueId().toString()), p.getName());
+                }
                 nick.updateNicked(p.getUniqueId().toString(), "-");
                 nick.updateID(p.getUniqueId().toString(), "-");
                 IPermissionPlayer permissionPlayer = PermissionPool.getInstance().getPermissionPlayerManager().getCachedPermissionPlayer(p.getUniqueId());
@@ -138,6 +146,10 @@ public class JoinListener implements Listener {
                 } else if (permissionPlayer.hasPermissionGroup("NickedModerator")) {
                     permissionPlayer.removePermissionGroup("NickedModerator");
                     permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Moderator", -1));
+                    permissionPlayer.update();
+                } else if (permissionPlayer.hasPermissionGroup("NickedSupporter")) {
+                    permissionPlayer.removePermissionGroup("NickedSupporter");
+                    permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Supporter", -1));
                     permissionPlayer.update();
                 }
             }

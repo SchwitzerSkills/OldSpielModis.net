@@ -1,4 +1,4 @@
-package de.oldspielmodis.spigot.nick.utils;
+package de.oldspielmodis.spigot.nick.mysql;
 
 import de.oldspielmodis.spigot.nick.Nickapi;
 import de.oldspielmodis.spigot.nick.mysql.MySQL;
@@ -47,6 +47,18 @@ public class Nickname {
     public boolean NicknamesExists(){
         this.mySQL = Nickapi.getInstance().getMySQL();
         try (ResultSet rs = mySQL.query("SELECT COUNT(*) AS count FROM Nicknames")){
+            if(rs.next()){
+                return rs.getInt("count") != 0;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean NicknamesExists(String nickname){
+        this.mySQL = Nickapi.getInstance().getMySQL();
+        try (ResultSet rs = mySQL.query("SELECT COUNT(*) AS count FROM Nicknames WHERE NICKNAME=?", nickname)){
             if(rs.next()){
                 return rs.getInt("count") != 0;
             }
