@@ -63,9 +63,12 @@ public class ItemManager {
         return this;
     }
 
-
-
-
+    public ItemManager setUnbreakable(boolean unbreakable) {
+        ItemMeta im = is.getItemMeta();
+        im.spigot().setUnbreakable(unbreakable);
+        is.setItemMeta(im);
+        return this;
+    }
 
     public ItemManager addUnsafeEnchantment(Enchantment ench, int level) {
         is.addUnsafeEnchantment(ench, level);

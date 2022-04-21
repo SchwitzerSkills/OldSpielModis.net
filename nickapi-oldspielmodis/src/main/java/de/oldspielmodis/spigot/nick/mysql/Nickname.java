@@ -22,11 +22,6 @@ public class Nickname {
         mySQL.update("INSERT INTO Nicknames (ID, NICKNAME) VALUES ('" + id + "', '" + nickname + "')");
     }
 
-    public void updateNickname(String id, String nickname){
-        this.mySQL = Nickapi.getInstance().getMySQL();
-        mySQL.update("UPDATE Nicknames SET NICKNAME=? WHERE ID=?", nickname, id);
-    }
-
     public void removeNickname(String id){
         this.mySQL = Nickapi.getInstance().getMySQL();
         mySQL.update("DELETE FROM Nicknames WHERE ID=?", id);

@@ -7,11 +7,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.FishHook;
+import org.bukkit.entity.Fish;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 public class Grapplinghook implements Listener {
@@ -19,35 +20,38 @@ public class Grapplinghook implements Listener {
     @EventHandler
     public void onFish(PlayerFishEvent e){
         Player p = e.getPlayer();
-        FishHook hook = e.getHook();
-        if(e.getState() == PlayerFishEvent.State.CAUGHT_ENTITY || e.getState() == PlayerFishEvent.State.CAUGHT_FISH){
-            p.sendMessage(Lobbysystem.PREFIX + "§cFishing is prohibited!");
-            e.setCancelled(true);
-        }
-        if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eGrappling hook §8┃ §7Rightclick")) {
-            if(p.getItemInHand().getType() == Material.FISHING_ROD){
-                if (hook.getLocation().subtract(0, 1, 0).getBlock().getType() != Material.AIR) {
-                    Location loc = p.getLocation();
-                    Location hookloc = hook.getLocation();
+        Fish h = e.getHook();
+        if ((e.getState().equals(PlayerFishEvent.State.IN_GROUND) || e
+                .getState().equals(PlayerFishEvent.State.CAUGHT_ENTITY) || e
+                .getState().equals(PlayerFishEvent.State.FAILED_ATTEMPT)) &&
+                Bukkit.getWorld(e.getPlayer().getWorld().getName())
+                        .getBlockAt(h.getLocation().getBlockX(), h.getLocation().getBlockY() - 1, h
+                                .getLocation().getBlockZ())
+                        .getType() != Material.AIR &&
 
-                    Vector v = p.getVelocity();
-                    double distance = loc.distance(hookloc);
+                Bukkit.getWorld(e.getPlayer().getWorld().getName()).getBlockAt(h.getLocation().getBlockX(), h
+                                .getLocation().getBlockY() - 1, h.getLocation().getBlockZ())
+                        .getType() != Material.STATIONARY_WATER) {
+            Location lc = p.getLocation();
+            Location to = e.getHook().getLocation();
 
-                    CircleManager circleManager = new CircleManager();
-                    circleManager.drawCircle(hookloc, (float) 1, EnumParticle.VILLAGER_HAPPY, false);
+            CircleManager circleManager = new CircleManager();
+            circleManager.drawCircle(to, (float) 1, EnumParticle.VILLAGER_HAPPY, false);
 
-                    v.setX((distance) * (hookloc.getX() - loc.getX()) / distance);
-                    v.setY((distance) * (loc.getY() - loc.getY()) / distance - -0.02D * distance);
-                    v.setZ((distance) * (hookloc.getZ() - loc.getZ()) / distance);
-
-                    p.setVelocity(v);
-                    p.playSound(p.getLocation(), Sound.ENDERDRAGON_WINGS, 10, 10);
-                    Bukkit.getScheduler().runTaskLaterAsynchronously(Lobbysystem.getInstance(), () -> {
-                        p.getItemInHand().setDurability((short) 0);
-                        p.updateInventory();
-                    }, 0);
-                }
-            }
+            lc.setY(lc.getY() + 0.5D);
+            p.teleport(lc);
+            double g = -0.08D;
+            double d = to.distance(lc);
+            double t = d;
+            double v_x = (1.0D + 0.07D * t) * (to.getX() - lc.getX()) / t;
+            double v_y = (1.0D + 0.03D * t) * (to.getY() - lc.getY()) / t - 0.5D * g * t;
+            double v_z = (1.0D + 0.07D * t) * (to.getZ() - lc.getZ()) / t;
+            Vector v = p.getVelocity();
+            v.setX(v_x);
+            v.setY(v_y);
+            v.setZ(v_z);
+            p.setVelocity(v);
+            p.playSound(p.getLocation(), Sound.ENDERDRAGON_WINGS, 3.0F, 2.0F);
         }
     }
 }

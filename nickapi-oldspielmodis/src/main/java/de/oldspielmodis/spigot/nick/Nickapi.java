@@ -87,47 +87,9 @@ public class Nickapi extends JavaPlugin {
     }
 
     public void init(){
-        Nickname nickname = new Nickname();
-        Nick nick = new Nick();
         Bukkit.getOnlinePlayers().forEach(all -> {
-            if(nick.isNicked(all.getUniqueId().toString())) {
-                if (nick.isRegistered(all.getUniqueId().toString())) {
-                        if (!nickname.IDExist(nick.getID(all.getUniqueId().toString()))) {
-                            if(!nickname.NicknamesExists(all.getName())) {
-                                nickname.addNickname(nick.getID(all.getUniqueId().toString()), all.getName());
-                            }
-                            nick.updateNicked(all.getUniqueId().toString(), "-");
-                            nick.updateID(all.getUniqueId().toString(), "-");
-
-                            IPermissionPlayer permissionPlayer = PermissionPool.getInstance().getPermissionPlayerManager().getCachedPermissionPlayer(all.getUniqueId());
-                            if (permissionPlayer.hasPermissionGroup("NickedAdmin")) {
-                                permissionPlayer.removePermissionGroup("NickedAdmin");
-                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Admin", -1));
-                                permissionPlayer.update();
-                            } else if (permissionPlayer.hasPermissionGroup("NickedBuilder")) {
-                                permissionPlayer.removePermissionGroup("NickedBuilder");
-                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Builder", -1));
-                                permissionPlayer.update();
-                            } else if (permissionPlayer.hasPermissionGroup("NickedContent")) {
-                                permissionPlayer.removePermissionGroup("NickedContent");
-                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Content", -1));
-                                permissionPlayer.update();
-                            } else if (permissionPlayer.hasPermissionGroup("NickedDeveloper")) {
-                                permissionPlayer.removePermissionGroup("NickedDeveloper");
-                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Developer", -1));
-                                permissionPlayer.update();
-                            } else if (permissionPlayer.hasPermissionGroup("NickedModerator")) {
-                                permissionPlayer.removePermissionGroup("NickedModerator");
-                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Moderator", -1));
-                                permissionPlayer.update();
-                            } else if (permissionPlayer.hasPermissionGroup("NickedSupporter")) {
-                                permissionPlayer.removePermissionGroup("NickedSupporter");
-                                permissionPlayer.addPermissionGroup(new PlayerPermissionGroupInfo("Supporter", -1));
-                                permissionPlayer.update();
-                            }
-                        }
-                    }
-                }
+          JoinListener joinListener = new JoinListener();
+          joinListener.nicked(all);
         });
     }
 }

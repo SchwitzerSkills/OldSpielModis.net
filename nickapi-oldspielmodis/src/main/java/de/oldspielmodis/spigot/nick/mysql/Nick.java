@@ -26,11 +26,6 @@ public class Nick {
         return false;
     }
 
-    public void register(String uuid, String name, String nicked, String id, boolean isnicked){
-        this.mySQL = Nickapi.getInstance().getMySQL();
-        mySQL.update("INSERT INTO Nick (UUID, NAME, NICKED, ID, ISNICKED) VALUES ('" + uuid + "', '" + name + "', '" + nicked + "', '" + id + "', '" + isnicked + "')");
-    }
-
     public void updateNicked(String uuid, String nicked){
         this.mySQL = Nickapi.getInstance().getMySQL();
         mySQL.update("UPDATE Nick SET NICKED=? WHERE UUID=?", nicked, uuid);
@@ -41,7 +36,7 @@ public class Nick {
         mySQL.update("UPDATE Nick SET ID=? WHERE UUID=?", id, uuid);
     }
 
-    public void updateIsNicked(String uuid, boolean isnicked){
+    public void updateIsNicked(String uuid, String isnicked){
         this.mySQL = Nickapi.getInstance().getMySQL();
         mySQL.update("UPDATE Nick SET ISNICKED=? WHERE UUID=?", isnicked, uuid);
     }

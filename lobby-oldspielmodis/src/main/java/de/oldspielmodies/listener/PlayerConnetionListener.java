@@ -27,6 +27,7 @@ public class PlayerConnetionListener implements Listener {
         event.setJoinMessage(null);
 
         new Data().onPlayerdefaultJoinSettings(event.getPlayer());
+        new Data().DefaultItems(event.getPlayer());
 
         for(int i = 0; i < 200; i++){
             event.getPlayer().sendMessage("");
@@ -34,7 +35,7 @@ public class PlayerConnetionListener implements Listener {
         News news = new News();
         List<String> list = news.getUpdates();
 
-        event.getPlayer().sendMessage(Lobbysystem.PREFIX + "Welcome to §eOldSpielModis.de\n      §8➥ §7Your §eMinecraft §7Network\n§a \n");
+        event.getPlayer().sendMessage(Lobbysystem.PREFIX + "Welcome to §eOldSpielModis.net\n      §8➥ §7Your §eMinecraft §7Network\n§a \n");
             if (news.isExistsNews()) {
                 event.getPlayer().sendMessage("§8§m------§8[ §cNEWS §8(§7" + news.getUpdatesDatum() + "§8) §8]§8§m------\n§a \n");
                 for (String list1 : list) {

@@ -2,9 +2,6 @@ package de.oldspielmodis.spigot.nick.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import eu.thesimplecloud.module.permission.PermissionPool;
-import eu.thesimplecloud.module.permission.player.IPermissionPlayer;
-import eu.thesimplecloud.module.permission.player.PlayerPermissionGroupInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -72,5 +69,10 @@ public class NickUtils {
         if (skin.getSkinName() != null) {
             gp.getProperties().put(skin.getSkinName(), new Property(skin.getSkinName(), skin.getSkinValue(), skin.getSkinSignatur()));
         }
+
+        Bukkit.getOnlinePlayers().forEach(all -> {
+            all.hidePlayer(p);
+            all.showPlayer(p);
+        });
     }
 }
