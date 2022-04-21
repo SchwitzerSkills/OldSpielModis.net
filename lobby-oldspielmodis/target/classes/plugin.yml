@@ -5,4 +5,5 @@ main: de.oldspielmodies.lobby.Lobbysystem
 commands:
   setwarp:
   build:
+  particlestart:
   news:
