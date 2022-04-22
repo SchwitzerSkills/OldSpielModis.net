@@ -20,7 +20,7 @@ public class SetWarpsCommand implements CommandExecutor {
         if(player.hasPermission("oldspielmodis.admin")){
 
             if(args.length == 0){
-                player.sendMessage(Lobbysystem.PREFIX + "Pleace use §e/warp §8(§eSpawn§8)");
+                player.sendMessage(Lobbysystem.PREFIX + "Please use §e/SetWarp §8(§eSpawn§8, §eBedWars§8, §eSkyWars§8)");
                 return true;
             }
 
@@ -28,7 +28,15 @@ public class SetWarpsCommand implements CommandExecutor {
                 new LocationManager().saveLocation(player, "spawn");
                 player.sendMessage(Lobbysystem.PREFIX + "§eSpawn§7 has been created!");
                 player.playSound(player.getLocation(), Sound.LEVEL_UP, 2, 2);
-            }else  player.sendMessage(Lobbysystem.PREFIX + "Pleace use §e/warp §8(§eSpawn§8)");
+            } else if(args[0].equalsIgnoreCase("SkyWars")) {
+                new LocationManager().saveLocation(player, "SkyWars");
+                player.sendMessage(Lobbysystem.PREFIX + "§eSkyWars§7 has been created!");
+                player.playSound(player.getLocation(), Sound.LEVEL_UP, 2, 2);
+            } else if(args[0].equalsIgnoreCase("BedWars")) {
+                new LocationManager().saveLocation(player, "BedWars");
+                player.sendMessage(Lobbysystem.PREFIX + "§eBedWars§7 has been created!");
+                player.playSound(player.getLocation(), Sound.LEVEL_UP, 2, 2);
+            }else player.sendMessage(Lobbysystem.PREFIX + "Please use §e/SetWarp §8(§eSpawn§8, §eBedWars§8, §eSkyWars§8)");
 
 
         }else player.sendMessage(Lobbysystem.NO_PERMS);

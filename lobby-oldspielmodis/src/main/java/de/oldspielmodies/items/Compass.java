@@ -28,9 +28,11 @@ public class Compass implements Listener {
 
                 if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK){
 
-                                final Inventory inventory = Bukkit.createInventory(null, 9*3, "§8» §eCompass");
+                                final Inventory inventory = Bukkit.createInventory(null, 9*5, "§8» §eCompass");
 
-                                inventory.setItem(13, new ItemManager(Material.MAGMA_CREAM).setDisplayName("§8» §aSpawn").toItemStack());
+                                inventory.setItem(13, new ItemManager(Material.MAGMA_CREAM).setDisplayName("§8» §eSpawn").toItemStack());
+                                inventory.setItem(30, new ItemManager(Material.GRASS).setDisplayName("§8» §eSkyWars").toItemStack());
+                                inventory.setItem(32, new ItemManager(Material.BED).setDisplayName("§8» §eBedWars").toItemStack());
 
                                 event.getPlayer().openInventory(inventory);
                 }
@@ -48,10 +50,22 @@ public class Compass implements Listener {
         if(event.getCurrentItem().getItemMeta() == null)return;
         if(event.getCurrentItem().getItemMeta().getDisplayName() == null)return;
 
-        if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §aSpawn")){
+        if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eSpawn")){
 
             player.closeInventory();
             player.teleport(new LocationManager().getLocation("spawn"));
+            player.playSound(player.getLocation(), Sound.LEVEL_UP, 2, 2);
+
+        }else if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eSkyWars")){
+
+            player.closeInventory();
+            player.teleport(new LocationManager().getLocation("skywars"));
+            player.playSound(player.getLocation(), Sound.LEVEL_UP, 2, 2);
+
+        }else if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §eBedWars")){
+
+            player.closeInventory();
+            player.teleport(new LocationManager().getLocation("bedwars"));
             player.playSound(player.getLocation(), Sound.LEVEL_UP, 2, 2);
 
         }else return;
