@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BungeeSystem">
+    <output-path>$PROJECT_DIR$/../../OldSpielModis.de</output-path>
+    <root id="archive" name="BungeeSystem.jar">
+      <element id="module-output" name="bungee-oldspielmodis" />
+      <element id="file-copy" path="$PROJECT_DIR$/bungee-oldspielmodis/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>

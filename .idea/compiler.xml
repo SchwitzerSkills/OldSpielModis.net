@@ -6,16 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="proxy-oldspielmodis" />
         <module name="coin-oldspielmodis" />
         <module name="nickapi-oldspielmodis" />
         <module name="nicktool-oldspielmodis" />
+        <module name="bungee-oldspielmodis" />
         <module name="lobby-oldspielmodis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="BungeeSystem" target="1.8" />
       <module name="coins-oldspielmodis" target="1.8" />
+      <module name="discord-oldspielmodis" target="1.8" />
       <module name="nicksystem-oldspielmodis" target="1.8" />
-      <module name="proxy-oldspielmodis" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

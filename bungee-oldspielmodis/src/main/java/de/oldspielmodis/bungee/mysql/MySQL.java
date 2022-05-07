@@ -1,11 +1,11 @@
-package de.oldspielmodis.proxy.nick.mysql;
+package de.oldspielmodis.bungee.mysql;
 
 import com.google.common.base.Preconditions;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
-import de.oldspielmodis.proxy.nick.Nicksystem;
+import de.oldspielmodis.bungee.Bungee;
 import net.md_5.bungee.BungeeCord;
 
 import java.sql.*;
@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class MySQL {
+
 
     @SuppressWarnings("UnstableApiUsage")
     private final LoadingCache<Integer, Connection> cache = CacheBuilder
@@ -24,7 +25,7 @@ public class MySQL {
                         removalNotification.getValue().close();
                     }
                 } catch (SQLException e) {
-                    BungeeCord.getInstance().getConsole().sendMessage(Nicksystem.PREFIX + "§cBitte die MySQL Daten überprüfen!");
+                    BungeeCord.getInstance().getConsole().sendMessage(Bungee.PREFIX + "§cBitte die MySQL Daten überprüfen!");
                 }
             }).build(new CacheLoader<Integer, Connection>() {
                 @Override

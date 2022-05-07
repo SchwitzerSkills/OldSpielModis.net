@@ -20,9 +20,9 @@ public class KickSystem extends Command {
             player.sendMessage("§8§m---------------\n\n§8» §7Chatverhalten §8┃ §e1\n§8» §7Verwarnung §8┃ §e2\n§8» §7Melde TS³ §8┃ §e3\n§8» §7Bugusing §8┃ §e4\n\n§8§m---------------§7");
             return;
         }else if(strings.length == 0){
-            player.sendMessage(Proxy.PREFIX + "Pleace use §e/kick §8(§eplayer§8) §8(§ereason§8)");
+            player.sendMessage(Proxy.PREFIX + "Please use §e/kick §8(§eplayer§8) §8(§ereason§8)");
             return;
-        }else  player.sendMessage(Proxy.PREFIX + "Pleace use §e/kick §8(§eplayer§8) §8(§ereason§8)");
+        }else  player.sendMessage(Proxy.PREFIX + "Please use §e/kick §8(§eplayer§8) §8(§ereason§8)");
 
 
 

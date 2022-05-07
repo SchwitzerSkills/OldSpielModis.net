@@ -2,6 +2,7 @@ package de.oldspielmodies.commands;
 
 import de.oldspielmodies.lobby.Lobbysystem;
 import de.oldspielmodies.mysql.News;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class NewsCommand implements CommandExecutor {
     @Override
@@ -42,8 +44,18 @@ public class NewsCommand implements CommandExecutor {
                         } else {
                             p.sendMessage(Lobbysystem.PREFIX + "§cThere are no news!");
                         }
-                    } else if (args.length == 1 || args.length == 0){
+                    } else if (args.length == 0){
                         p.sendMessage(Lobbysystem.PREFIX + "Please use §e/news §8(§eID§8) §8(§eDate MM/dd/yyyy§8) §8(§eMessage§8)\n§e/news remove §8(§eID§8)\n§e/news list");
+                    } else if(args.length == 1 && args[0].equalsIgnoreCase("list")){
+                        List<String> list = news.getUpdates();
+
+                        if(news.isExistsNews()) {
+                            for (String updates : list) {
+                                p.sendMessage(Lobbysystem.PREFIX + "§8» §7" + ChatColor.translateAlternateColorCodes('&', updates) + "§8(§e" + news.getUpdatesDatum() + "§8) §8┃ §e" + news.getUpdatesID(updates));
+                            }
+                        } else {
+                            p.sendMessage(Lobbysystem.PREFIX + "§cThere are no news!");
+                        }
                     }
                 } else {
                     p.sendMessage(Lobbysystem.NO_PERMS);

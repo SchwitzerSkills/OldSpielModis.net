@@ -1,6 +1,6 @@
-package de.oldspielmodis.proxy.nick.mysql;
+package de.oldspielmodis.nick.mysql;
 
-import de.oldspielmodis.proxy.nick.Nicksystem;
+import de.oldspielmodis.nick.Nicksystem;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

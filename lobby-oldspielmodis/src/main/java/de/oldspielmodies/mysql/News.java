@@ -82,7 +82,7 @@ public class News {
 
     public String getUpdatesDatum(){
         this.mySQL = Lobbysystem.getInstance().getMySQL();
-        try(ResultSet rs = mySQL.query("SELECT * FROM News WHERE ID='1'")){
+        try(ResultSet rs = mySQL.query("SELECT * FROM News")){
             if (rs.next()){
                 return rs.getString("DATUM");
             }
@@ -92,16 +92,15 @@ public class News {
         return "";
     }
 
-    public List<Integer> getUpdatesID(){
+    public String getUpdatesID(String nachrichten){
         this.mySQL = Lobbysystem.getInstance().getMySQL();
-        List<Integer> list = new ArrayList<>();
-        try(ResultSet rs = mySQL.query("SELECT * FROM News")){
-            while (rs.next()){
-                list.add(rs.getInt("ID"));
+        try(ResultSet rs = mySQL.query("SELECT * FROM News WHERE NACHRICHT=?", nachrichten)){
+            if (rs.next()){
+               return rs.getString("ID");
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
-        return list;
+        return "";
     }
 }

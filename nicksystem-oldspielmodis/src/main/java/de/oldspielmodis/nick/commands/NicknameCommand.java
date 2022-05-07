@@ -1,7 +1,7 @@
-package de.oldspielmodis.proxy.nick.commands;
+package de.oldspielmodis.nick.commands;
 
-import de.oldspielmodis.proxy.nick.Nicksystem;
-import de.oldspielmodis.proxy.nick.mysql.Nickname;
+import de.oldspielmodis.nick.Nicksystem;
+import de.oldspielmodis.nick.mysql.Nickname;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;

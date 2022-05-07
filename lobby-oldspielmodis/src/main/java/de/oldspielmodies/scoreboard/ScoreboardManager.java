@@ -5,6 +5,8 @@ import de.oldspielmodies.mysql.Setting;
 import de.oldspielmodis.coins.mysql.Coins;
 import eu.thesimplecloud.api.CloudAPI;
 import eu.thesimplecloud.api.player.ICloudPlayer;
+import eu.thesimplecloud.api.service.ICloudService;
+import eu.thesimplecloud.api.servicegroup.ICloudServiceGroup;
 import eu.thesimplecloud.module.permission.PermissionPool;
 import eu.thesimplecloud.module.permission.player.IPermissionPlayer;
 import org.bukkit.Bukkit;
@@ -21,6 +23,7 @@ public class ScoreboardManager {
     public static boolean scoreboard = false;
 
     public static Team coins;
+    public static Team server;
 
     public String[] animation = new String[]{
       "", "§8✗", "§8✗ ", "§8✗ §6§lO", "§8✗ §6§lOl", "§8✗ §6§lOld", "§8✗ §6§lOldS", "§8✗ §6§lOldSp", "§8✗ §6§lOldSpi", "§8✗ §6§lOldSpie", "§8✗ §6§lOldSpiel",
@@ -36,6 +39,7 @@ public class ScoreboardManager {
 
 
             coins = sb.registerNewTeam("coins");
+        server = sb.registerNewTeam("server");
 
             obj.setDisplaySlot(DisplaySlot.SIDEBAR);
             obj.setDisplayName(animation[animationCount]);
@@ -64,8 +68,9 @@ public class ScoreboardManager {
             obj.getScore("§2").setScore(17);
             obj.getScore(" §8» §7Server").setScore(16);
             ICloudPlayer p = CloudAPI.getInstance().getCloudPlayerManager().getCachedCloudPlayer(player.getName());
-            assert p != null;
-            obj.getScore("  §8➥ §e" + p.getConnectedServerName()).setScore(15);
+            server.setSuffix("  §8➥ §e" + p.getConnectedServerName());
+            server.addEntry("§i");
+            obj.getScore("§i").setScore(15);
             obj.getScore("§8").setScore(14);
             obj.getScore(" §8» §7Coins").setScore(13);
             Coins c = new Coins();
@@ -125,6 +130,10 @@ public class ScoreboardManager {
             obj.getScore("§c").setScore(12);
         }
 
+        ICloudPlayer p = CloudAPI.getInstance().getCloudPlayerManager().getCachedCloudPlayer(Bukkit.getPlayer(UUID.fromString(uuid)).getName());
+        server.setSuffix("  §8➥ §e" + p.getConnectedServerName());
+        server.addEntry("§i");
+        obj.getScore("§i").setScore(15);
 
     }
 
@@ -141,6 +150,7 @@ public class ScoreboardManager {
 
 
         coins = sb.getTeam("coins");
+        server = sb.getTeam("server");
 
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         obj.setDisplayName(animation[animationCount]);
@@ -169,8 +179,9 @@ public class ScoreboardManager {
         obj.getScore("§2").setScore(17);
         obj.getScore(" §8» §7Server").setScore(16);
         ICloudPlayer p = CloudAPI.getInstance().getCloudPlayerManager().getCachedCloudPlayer(player.getName());
-        assert p != null;
-        obj.getScore("  §8➥ §e" + p.getConnectedServerName()).setScore(15);
+        server.setSuffix("  §8➥ §e" + p.getConnectedServerName());
+        server.addEntry("§i");
+        obj.getScore("§i").setScore(15);
         obj.getScore("§8").setScore(14);
         obj.getScore(" §8» §7Coins").setScore(13);
         Coins c = new Coins();

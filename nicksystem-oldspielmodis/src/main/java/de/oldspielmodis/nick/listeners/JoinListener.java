@@ -1,6 +1,6 @@
-package de.oldspielmodis.proxy.nick.listeners;
+package de.oldspielmodis.nick.listeners;
 
-import de.oldspielmodis.proxy.nick.mysql.Nick;
+import de.oldspielmodis.nick.mysql.Nick;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;

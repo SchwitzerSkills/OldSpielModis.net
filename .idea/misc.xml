@@ -16,6 +16,11 @@
         <option value="$PROJECT_DIR$/nicktool-oldspielmodis/pom.xml" />
         <option value="$PROJECT_DIR$/nickapi-oldspielmodis/pom.xml" />
         <option value="$PROJECT_DIR$/nicksystem-oldspielmodis/pom.xml" />
+        <option value="$PROJECT_DIR$/proxy/pom.xml" />
+        <option value="$PROJECT_DIR$/proxy-oldspielmodis/pom.xml" />
+        <option value="$PROJECT_DIR$/Discord/pom.xml" />
+        <option value="$PROJECT_DIR$/bungee-oldspielmodis/pom.xml" />
+        <option value="$PROJECT_DIR$/BedWars/pom.xml" />
       </list>
     </option>
   </component>

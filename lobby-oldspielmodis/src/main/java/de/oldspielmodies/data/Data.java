@@ -4,11 +4,14 @@ import de.oldspielmodies.manager.ItemManager;
 import de.oldspielmodies.mysql.Setting;
 import de.oldspielmodies.scoreboard.ScoreboardManager;
 import de.oldspielmodis.spigot.nick.mysql.Nick;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
+
+import java.util.UUID;
 
 public class Data {
 
@@ -23,6 +26,10 @@ public class Data {
         Setting setting = new Setting();
         if(!setting.hasSetting(player.getUniqueId().toString(), "scoreboard")) {
             new ScoreboardManager().setBoard(player);
+            ScoreboardManager scoreboardManager = new ScoreboardManager();
+            Bukkit.getOnlinePlayers().forEach(all -> {
+                scoreboardManager.updateBoard(all.getUniqueId().toString());
+            });
         }
 
 
@@ -36,9 +43,11 @@ public class Data {
         player.getInventory().setItem(8, new ItemManager(Material.FISHING_ROD).setUnbreakable(true).addItemFlags(ItemFlag.HIDE_UNBREAKABLE).setDisplayName("§8» §eGrappling hook §8┃ §7Rightclick").toItemStack());
 
         if(!player.hasPermission("oldspielmodis.nicktool")) {
-            player.getInventory().setItem(4, new ItemManager(Material.CHEST).setDisplayName("§8» §eGadgets §8┃ §7Rightclick").toItemStack());
+            player.getInventory().setItem(3, new ItemManager(Material.CHEST).setDisplayName("§8» §eGadgets §8┃ §7Rightclick").toItemStack());
+            player.getInventory().setItem(5, new ItemManager(Material.NETHER_STAR).setDisplayName("§8» §eLobby-switcher §8┃ §7Rightclick").toItemStack());
         } else {
             player.getInventory().setItem(3, new ItemManager(Material.CHEST).setDisplayName("§8» §eGadgets §8┃ §7Rightclick").toItemStack());
+            player.getInventory().setItem(4, new ItemManager(Material.NETHER_STAR).setDisplayName("§8» §eLobby-switcher §8┃ §7Rightclick").toItemStack());
             Nick nick = new Nick();
             if(!nick.isNicked(player.getUniqueId().toString())) {
                 player.getInventory().setItem(5, new ItemManager(Material.NAME_TAG).setDisplayName("§8» §eNick-Tool §8(§cDisabled§8) §8┃ §7Rightclick").toItemStack());

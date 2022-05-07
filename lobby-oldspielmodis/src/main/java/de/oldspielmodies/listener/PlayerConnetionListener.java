@@ -8,6 +8,8 @@ import de.oldspielmodies.mysql.News;
 import de.oldspielmodies.mysql.Setting;
 import de.oldspielmodies.scoreboard.ScoreboardManager;
 import de.oldspielmodis.spigot.nick.mysql.Nick;
+import eu.thesimplecloud.api.CloudAPI;
+import eu.thesimplecloud.api.player.ICloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -20,7 +22,6 @@ import java.util.List;
 
 
 public class PlayerConnetionListener implements Listener {
-
 
     @EventHandler
     public void onPlayerJoin(final PlayerJoinEvent event){
@@ -69,7 +70,7 @@ public class PlayerConnetionListener implements Listener {
             }
         });
 
-        Nick nick = new Nick();
+       /* Nick nick = new Nick();
         if(nick.isNicked(event.getPlayer().getUniqueId().toString())) {
             ScoreboardManager scoreboardManager = new ScoreboardManager();
             scoreboardManager.removeBoard(event.getPlayer());
@@ -80,7 +81,7 @@ public class PlayerConnetionListener implements Listener {
                     scoreboardManager.setBoardMain(event.getPlayer());
                 }
             }.runTaskLater(Lobbysystem.getInstance(), 4);
-        }
+        }*/
     }
 
 

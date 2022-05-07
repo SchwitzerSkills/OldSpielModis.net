@@ -93,7 +93,7 @@ public class Lobbysystem extends JavaPlugin {
         pluginManager.registerEvents(new Gadgets(), this);
         pluginManager.registerEvents(new PlayerMoveListener(), this);
         pluginManager.registerEvents(new Nicktool(), this);
-
+        pluginManager.registerEvents(new Lobbyswitcher(), this);
     }
 
 

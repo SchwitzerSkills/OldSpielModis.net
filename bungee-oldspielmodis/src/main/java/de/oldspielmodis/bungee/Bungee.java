@@ -1,10 +1,13 @@
-package de.oldspielmodis.proxy.nick;
+package de.oldspielmodis.bungee;
 
-import de.oldspielmodis.proxy.nick.commands.NicknameCommand;
-import de.oldspielmodis.proxy.nick.listeners.JoinListener;
-import de.oldspielmodis.proxy.nick.mysql.MySQL;
-import de.oldspielmodis.proxy.nick.mysql.Nick;
-import de.oldspielmodis.proxy.nick.mysql.Nickname;
+import de.oldspielmodis.bungee.commands.BanCommand;
+import de.oldspielmodis.bungee.commands.BanInfoCommand;
+import de.oldspielmodis.bungee.commands.UnbanCommand;
+import de.oldspielmodis.bungee.listeners.JoinListener;
+import de.oldspielmodis.bungee.mysql.Ban;
+import de.oldspielmodis.bungee.mysql.BanReason;
+import de.oldspielmodis.bungee.mysql.MySQL;
+import de.oldspielmodis.bungee.utils.BanType;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
@@ -12,21 +15,24 @@ import net.md_5.bungee.config.YamlConfiguration;
 
 import java.io.File;
 
-public class Nicksystem extends Plugin {
+public class Bungee extends Plugin {
 
     public static final String PREFIX = "§8× §eProxy §8┃ §7",
             NO_PERMS = PREFIX + "§cYou don't have the permission to use this command!";
 
-    private MySQL mySQL;
-    public static Nicksystem instance;
+    public static File file = new File("plugins/Bungee/mysql.yml");
 
-    public static File file = new File("plugins/Nicksystem/mysql.yml");
+    public static Bungee instance;
+
+    private MySQL mySQL;
+
+    private BanType banType;
 
     @Override
     public void onEnable() {
-        instance = this;
         createFile();
-        ///--------------------------
+        instance = this;
+        //-------------------------------------------
         try {
             Configuration config = YamlConfiguration.getProvider(YamlConfiguration.class).load(file);
             this.mySQL = MySQL.newBuilder()
@@ -38,26 +44,27 @@ public class Nicksystem extends Plugin {
                     .create();
         } catch (Exception e){
         }
-        ///--------------------------
+        //-------------------------------------------
+        BungeeCord.getInstance().getConsole().sendMessage(PREFIX + "§aPlugin aktiviert");
+        BanReason banReason = new BanReason();
+        banReason.createTable();
+        Ban ban = new Ban();
+        ban.createTable();
 
-        BungeeCord.getInstance().getConsole().sendMessage(PREFIX + "§aNicksystem aktiviert");
-        Nick nick = new Nick();
-        nick.createTable();
-        Nickname nickname = new Nickname();
-        nickname.createTable();
-
+        BungeeCord.getInstance().getPluginManager().registerCommand(this, new BanCommand());
+        BungeeCord.getInstance().getPluginManager().registerCommand(this, new UnbanCommand());
+        BungeeCord.getInstance().getPluginManager().registerCommand(this, new BanInfoCommand());
         BungeeCord.getInstance().getPluginManager().registerListener(this, new JoinListener());
-        BungeeCord.getInstance().getPluginManager().registerCommand(this, new NicknameCommand());
     }
 
     @Override
     public void onDisable() {
-        BungeeCord.getInstance().getConsole().sendMessage(PREFIX + "§cNicksystem deaktiviert");
+        BungeeCord.getInstance().getConsole().sendMessage(PREFIX + "§cPlugin deaktiviert");
     }
 
     public void createFile(){
-        try {
-            if (!getDataFolder().exists()) {
+        try{
+            if(!getDataFolder().exists()){
                 getDataFolder().mkdir();
             }
             if(!file.exists()){
@@ -73,11 +80,19 @@ public class Nicksystem extends Plugin {
         }
     }
 
-    public static Nicksystem getInstance() {
+    public static Bungee getInstance() {
         return instance;
     }
 
     public MySQL getMySQL() {
         return mySQL;
+    }
+
+    public BanType getBanType() {
+        return banType;
+    }
+
+    public void setBanType(BanType banType){
+        this.banType = banType;
     }
 }
