@@ -7,10 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="proxy-oldspielmodis" />
+        <module name="BedWars" />
+        <module name="bungee-oldspielmodis" />
         <module name="coin-oldspielmodis" />
         <module name="nickapi-oldspielmodis" />
         <module name="nicktool-oldspielmodis" />
-        <module name="bungee-oldspielmodis" />
         <module name="lobby-oldspielmodis" />
       </profile>
     </annotationProcessing>
