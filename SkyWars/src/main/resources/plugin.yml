@@ -1,0 +1,12 @@
+main: de.schwitzerskills.spigot.skywars.SkyWars
+name: SkyWars
+version: 1.0
+author: SchwitzerSkills
+
+commands:
+  start:
+  map:
+  forcemap:
+  set:
+  setspawn:
+  setheight:
